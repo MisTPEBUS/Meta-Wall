@@ -22,16 +22,13 @@ app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 mongoose.connect(constr)
     .then(res => console.log("連線資料成功"));
 
-
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
-
 app.use('/api/posts', postRouter);
 
 module.exports = app;
