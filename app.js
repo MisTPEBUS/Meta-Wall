@@ -14,6 +14,11 @@ const constr = process.env.DATABASE.replace('<password>',process.env.DATABASE_PA
 console.log(constr)
 mongoose.set('strictQuery', false);
 
+
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json') // 剛剛輸出的 JSON
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+
 mongoose.connect(constr)
     .then(res => console.log("連線資料成功"));
 

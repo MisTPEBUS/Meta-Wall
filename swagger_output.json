@@ -1,0 +1,186 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "社群貼文METAWALL API",
+    "version": "1.0.0",
+    "description": "六角學院API。"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "paths": {
+    "/api/posts/": {
+      "get": {
+        "summary": "搜尋貼文",
+        "operationId": "addProduct",
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "timeSort",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "keyWord",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "添加成功",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "message": "搜尋成功",
+                  "posts":[
+                    {
+                      "_id": "66253bf6cc8cb3b113b61321",
+                      "userName": "Lobinda",
+                      "userPhoto": "http://example.com/photo.jpg",
+                      "content": "33",
+                      "image": ""
+                    }
+                 ] 
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "異常失敗",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "無法建立貼文",
+                  "errMsg": "message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "添加新貼文",
+        "operationId": "addProduct",
+        "tags": [
+          "Post"
+        ],
+        "requestBody": {
+          "description": "body example",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schemas": {
+                "Post": {
+                  "type": "object",
+                  "required": [
+                    "userName",
+                    "content",
+                    "is_enabled"
+                  ],
+                  "properties": {
+                    "userName": {
+                      "type": "string"
+                    },
+                    "userPhoto": {
+                      "type": "string",
+                      "default": ""
+                    },
+                    "content": {
+                      "type": "integer"
+                    },
+                    "image": {
+                      "type": "integer",
+                      "default": ""
+                    },
+                    "createdAt": {
+                      "type": "Date",
+                      "default": "Date.now"
+                    }
+                  }
+                }
+              },
+              "example": {
+                "_id": "66253bf6cc8cb3b113b61321",
+                "userName": "王小明1",
+                "userPhoto": "http://example.com/photo.jpg",
+                "content": "33",
+                "image": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "添加成功",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "message": "已建立貼文",
+                  "post": {
+                    "_id": "66253bf6cc8cb3b113b61321",
+                    "userName": "王小明1",
+                    "userPhoto": "http://example.com/photo.jpg",
+                    "content": "33",
+                    "image": ""
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "添加失敗",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "無法建立貼文",
+                  "errMsg": "message"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Post": {
+        "type": "object",
+        "required": [
+          "userName",
+          "content",
+          "is_enabled"
+        ],
+        "properties": {
+          "userName": {
+            "type": "string"
+          },
+          "userPhoto": {
+            "type": "string",
+            "default": ""
+          },
+          "content": {
+            "type": "integer"
+          },
+          "image": {
+            "type": "integer",
+            "default": ""
+          },
+          "createdAt": {
+            "type": "Date",
+            "default": "Date.now"
+          }
+        }
+      }
+    }
+  }
+}
