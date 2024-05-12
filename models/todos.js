@@ -10,8 +10,10 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Content未填寫']
     },
-   
-    
+    status:{
+        type: Boolean,
+        default:false
+    },
     createdAt: {
       type: Date,
       default: Date.now,
