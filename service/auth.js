@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const appError = require('../service/appError'); 
 const handleErrorAsync = require('../service/handleErrorAsync');
-const User = require('../models/usersModel');
+const User = require('../models/users');
 const isAuth = handleErrorAsync(async (req, res, next) => {
     let token;
     if (
