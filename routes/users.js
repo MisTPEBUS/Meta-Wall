@@ -16,7 +16,8 @@ router.post('/sign_up', function (req, res, next) {
      in: 'body',
      required: true,
      schema: {
-        "username": "example@test.com",
+        "name": "Lobinda",
+        "email": "example@test.com",
         "password": "example"
      }
    }
@@ -50,7 +51,7 @@ router.post('/sign_in', function (req, res, next) {
      in: 'body',
      required: true,
      schema: {
-        "username": "example@test.com",
+        "email": "example@test.com",
         "password": "example"
      }
    }
@@ -88,7 +89,7 @@ router.post('/sign_out', function (req, res, next) {
      description: 'Todo 內容',
      required: true,
      schema: {
-       "content": "這是待辦標題",
+       "email": "example@test.com",
      }
    }
    #swagger.responses[200] = { 
