@@ -38,7 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/todos', todosRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/', usersRouter);
 
 //route 404 
 app.use(function (req, res, next) {
