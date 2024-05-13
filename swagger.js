@@ -22,7 +22,15 @@ const doc = {
             description: "todos"
         },
     ],
-    securityDefinitions: {},         // by default: empty object
+    securityDefinitions: {
+        JWT: {
+			"type": "apiKey",
+			"in": "query",
+			"name": "access_token"
+		}
+	
+	
+    },         // by default: empty object
     definitions: {
     }                  // by default: empty object
 }
