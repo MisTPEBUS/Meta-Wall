@@ -55,7 +55,16 @@
                   "type": "array",
                   "items": {
                     "type": "object",
-                    "properties": {}
+                    "properties": {
+                      "status": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "content": {
+                        "type": "string",
+                        "example": "Model建立"
+                      }
+                    }
                   }
                 }
               },
@@ -104,7 +113,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "待辦事項ID"
           },
           {
             "name": "data",
@@ -113,17 +123,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "message": {
                   "type": "string",
-                  "example": "Lobinda"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "example@test.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "example"
+                  "example": "更新app.js!"
                 }
               }
             }
@@ -141,14 +143,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": ""
-                },
-                "todos": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {}
-                  }
+                  "example": "新增成功!"
                 }
               },
               "xml": {
@@ -166,7 +161,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "使用者不存在"
+                  "example": "Content未填寫"
                 }
               },
               "xml": {
@@ -196,29 +191,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "data",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Lobinda"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "example@test.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "example"
-                }
-              }
-            }
+            "type": "string",
+            "description": "待辦事項ID"
           }
         ],
         "responses": {
@@ -233,14 +207,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": ""
-                },
-                "todos": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {}
-                  }
+                  "example": "刪除成功!"
                 }
               },
               "xml": {
@@ -258,7 +225,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "使用者不存在"
+                  "example": "找不到ID內容"
                 }
               },
               "xml": {
@@ -286,30 +253,12 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "data",
             "in": "body",
             "required": true,
+            "description": "待辦ID",
             "schema": {
               "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Lobinda"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "example@test.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "example"
-                }
-              }
+              "properties": {}
             }
           }
         ],
@@ -326,13 +275,6 @@
                 "message": {
                   "type": "string",
                   "example": ""
-                },
-                "todos": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {}
-                  }
                 }
               },
               "xml": {
@@ -350,7 +292,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "使用者不存在"
+                  "example": "ID不存在"
                 }
               },
               "xml": {
@@ -385,17 +327,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "content": {
                   "type": "string",
-                  "example": "Lobinda"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "example@test.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "example"
+                  "example": "JWT建立"
                 }
               }
             }
@@ -413,14 +347,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": ""
-                },
-                "todos": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {}
-                  }
+                  "example": "新增成功!"
                 }
               },
               "xml": {
@@ -438,7 +365,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "使用者不存在"
+                  "example": "Content未填寫!"
                 }
               },
               "xml": {
@@ -575,7 +502,7 @@
                   "type": "string",
                   "example": "登入成功"
                 },
-                "uid": {
+                "id": {
                   "type": "string",
                   "example": "5fOCKiwA08gUGBiPy8Pr0983SS62"
                 },
@@ -603,7 +530,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": ""
+                  "example": "登入失敗"
                 }
               },
               "xml": {
@@ -621,26 +548,9 @@
           "使用者登入驗證"
         ],
         "summary": "會員登出",
-        "description": "會員登出",
+        "description": "會員登出(JWT要帶入header)",
         "produces": [
           "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Data",
-            "in": "body",
-            "description": "Todo 內容",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "example@test.com"
-                }
-              }
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -654,7 +564,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": ""
+                  "example": "會員登出"
                 }
               },
               "xml": {
@@ -672,7 +582,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": ""
+                  "example": "處理異常"
                 }
               },
               "xml": {
@@ -681,7 +591,12 @@
             },
             "description": "Bad Request"
           }
-        }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
       }
     },
     "api/users/checkout": {
@@ -690,7 +605,7 @@
           "使用者登入驗證"
         ],
         "summary": "使用者身分驗證",
-        "description": "使用者身分驗證",
+        "description": "使用者身分驗證(帶入header)",
         "produces": [
           "application/json"
         ],
@@ -733,16 +648,22 @@
             },
             "description": "Bad Request"
           }
-        }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
       }
     }
   },
   "components": {
     "securitySchemes": {
-      "JWT": {
+      "BearerAuth": {
         "type": "apiKey",
-        "in": "query",
-        "name": "access_token"
+        "in": "header",
+        "name": "Authorization",
+        "description": "Enter JWT Bearer token **_only_**"
       }
     }
   }

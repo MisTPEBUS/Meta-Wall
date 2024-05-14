@@ -23,14 +23,13 @@ const doc = {
         },
     ],
     securityDefinitions: {
-        JWT: {
-			"type": "apiKey",
-			"in": "query",
-			"name": "access_token"
-		}
-	
-	
-    },         // by default: empty object
+        BearerAuth: {  // Arbitrary name for the security scheme
+            type: 'apiKey',
+            in: 'header',  // can also be 'query' or 'cookie'
+            name: 'Authorization',  // name of the header, query parameter, or cookie
+            description: "Enter JWT Bearer token **_only_**"
+        }
+    },
     definitions: {
     }                  // by default: empty object
 }
