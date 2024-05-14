@@ -82,6 +82,7 @@ router.post('/sign_out', function (req, res, next) {
     #swagger.summary='會員登出'
     #swagger.description = '會員登出(JWT要帶入header)'
     #swagger.produces = ["application/json"] 
+    #swagger.security = [{'BearerAuth': []}]
   */
   /*
    #swagger.responses[200] = { 
@@ -109,6 +110,7 @@ router.get('/users/checkout', function (req, res, next) {
     #swagger.summary='使用者身分驗證'
     #swagger.description = '使用者身分驗證(帶入header)'
     #swagger.produces = ["application/json"] 
+    #swagger.security = [{'BearerAuth': []}]
   */
   /*
    #swagger.responses[200] = { 
