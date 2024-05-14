@@ -59,7 +59,7 @@ router.post('/sign_in', function (req, res, next) {
      schema: {
           "status": true,
           "message": "登入成功",
-          "uid": "5fOCKiwA08gUGBiPy8Pr0983SS62",
+          "id": "5fOCKiwA08gUGBiPy8Pr0983SS62",
           "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkUc....",
           "expired": 1716013181463
        }
@@ -67,7 +67,7 @@ router.post('/sign_in', function (req, res, next) {
    #swagger.responses[400] = { 
      schema: {
          "status": false,
-         "message": "",
+         "message": "登入失敗",
        }
      } 
   */
@@ -80,28 +80,20 @@ router.post('/sign_out', function (req, res, next) {
     #swagger.path = 'api/sign_out'
     #swagger.method = 'post'
     #swagger.summary='會員登出'
-    #swagger.description = '會員登出'
+    #swagger.description = '會員登出(JWT要帶入header)'
     #swagger.produces = ["application/json"] 
   */
   /*
-   #swagger.parameters['Data'] = {
-     in: 'body',
-     description: 'Todo 內容',
-     required: true,
-     schema: {
-       "email": "example@test.com",
-     }
-   }
    #swagger.responses[200] = { 
      schema: {
          "status": true,
-         "message": "",
+         "message": "會員登出",
        }
      } 
    #swagger.responses[400] = { 
      schema: {
          "status": false,
-         "message": "",
+         "message": "處理異常",
        }
      } 
   */
@@ -115,7 +107,7 @@ router.get('/users/checkout', function (req, res, next) {
     #swagger.path = 'api/users/checkout'
     #swagger.method = 'post'
     #swagger.summary='使用者身分驗證'
-    #swagger.description = '使用者身分驗證'
+    #swagger.description = '使用者身分驗證(帶入header)'
     #swagger.produces = ["application/json"] 
   */
   /*
