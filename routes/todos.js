@@ -3,7 +3,7 @@ var router = express.Router();
 
 //讀取清單
 router.get('/', function (req, res, next) {
-   
+
     /*
         #swagger.tags =  ['待辦事項']
         #swagger.path = '/todos/{id}'
@@ -14,18 +14,20 @@ router.get('/', function (req, res, next) {
         #swagger.security = [{'BearerAuth': []}]
     */
     /*
-        #swagger.parameters['id'] = {
-            in: 'path',
-            required: true,
-        }
+      
         #swagger.responses[200] = { 
             schema: {
                 "status": true,
                 "message": "",
                 "todos":[
                     {
-                        
-                    }
+                        status:false,
+                        content:"API文件"
+                    },
+                    {
+                        status:true,
+                        content:"Model建立"
+                    },
                 ]
             }
         } 
@@ -54,27 +56,20 @@ router.post('/', function (req, res, next) {
          #swagger.parameters['data'] = {
              in: 'body',
              required: true,
-              schema: {
-                "name": "Lobinda",
-                "email": "example@test.com",
-                "password": "example"
-              }
+              schema:{
+                        content:"JWT建立"
+               },
          }
          #swagger.responses[200] = { 
              schema: {
                  "status": true,
-                 "message": "",
-                 "todos":[
-                     {
-                         
-                     }
-                 ]
+                 "message": "新增成功!",
              }
          } 
          #swagger.responses[400] = { 
              schema: {
                  "status": false,
-                 "message": "使用者不存在",
+                 "message": "Content未填寫!",
              }
              } 
          */
@@ -83,7 +78,7 @@ router.post('/', function (req, res, next) {
 });
 //修改代辦
 router.put('/{id}', function (req, res, next) {
-    
+
     /*
        #swagger.tags =  ['待辦事項']
        #swagger.path = '/todos/{id}'
@@ -94,30 +89,28 @@ router.put('/{id}', function (req, res, next) {
                #swagger.security = [{'BearerAuth': []}]
    */
     /*
+        #swagger.parameters['id'] = {
+                in: 'path',
+                required: true,
+               description:"待辦事項ID"
+            }
          #swagger.parameters['data'] = {
              in: 'body',
              required: true,
               schema: {
-                "name": "Lobinda",
-                "email": "example@test.com",
-                "password": "example"
+               "message": "更新app.js!",
               }
          }
          #swagger.responses[200] = { 
              schema: {
                  "status": true,
-                 "message": "",
-                 "todos":[
-                     {
-                         
-                     }
-                 ]
+                 "message": "新增成功!",
              }
          } 
          #swagger.responses[400] = { 
              schema: {
                  "status": false,
-                 "message": "使用者不存在",
+                 "message": "Content未填寫",
              }
              } 
          */
@@ -135,34 +128,26 @@ router.delete('/{id}', function (req, res, next) {
                #swagger.security = [{'BearerAuth': []}]
    */
     /*
-         #swagger.parameters['data'] = {
-             in: 'body',
+         #swagger.parameters['id'] = {
+             in: 'path',
              required: true,
-              schema: {
-                "name": "Lobinda",
-                "email": "example@test.com",
-                "password": "example"
-              }
+             description: "待辦事項ID"
+             
          }
          #swagger.responses[200] = { 
              schema: {
                  "status": true,
-                 "message": "",
-                 "todos":[
-                     {
-                         
-                     }
-                 ]
+                 "message": "刪除成功!",
              }
          } 
          #swagger.responses[400] = { 
              schema: {
                  "status": false,
-                 "message": "使用者不存在",
+                 "message": "找不到ID內容",
              }
              } 
          */
-    
+
     res.send('respond checkout');
 });
 //設定待辦完成
@@ -177,34 +162,25 @@ router.patch('/{id}/toggle', function (req, res, next) {
                #swagger.security = [{'BearerAuth': []}]
    */
     /*
-         #swagger.parameters['data'] = {
+         #swagger.parameters['id'] = {
              in: 'body',
              required: true,
-              schema: {
-                "name": "Lobinda",
-                "email": "example@test.com",
-                "password": "example"
-              }
+            description:"待辦ID"
          }
          #swagger.responses[200] = { 
              schema: {
                  "status": true,
                  "message": "",
-                 "todos":[
-                     {
-                         
-                     }
-                 ]
              }
          } 
          #swagger.responses[400] = { 
              schema: {
                  "status": false,
-                 "message": "使用者不存在",
+                 "message": "ID不存在",
              }
              } 
          */
-    
+
     res.send('respond checkout');
 });
 
