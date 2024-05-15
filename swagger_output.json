@@ -1,6 +1,5 @@
 {
   "swagger": "2.0",
-  "openapi": "2.0.0",
   "info": {
     "title": "TODOLIST",
     "version": "1.0.0",
@@ -18,8 +17,17 @@
       "description": "todos"
     }
   ],
+  "schemes": [],
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "Enter JWT Bearer token **_only_**"
+    }
+  },
   "paths": {
-    "/todos/{id}": {
+    "/todos": {
       "get": {
         "tags": [
           "待辦事項"
@@ -28,14 +36,6 @@
         "description": "讀取待辦清單",
         "produces": [
           "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
         ],
         "responses": {
           "200": {
@@ -99,6 +99,79 @@
           }
         ]
       },
+      "post": {
+        "tags": [
+          "待辦事項"
+        ],
+        "summary": "新增代辦清單",
+        "description": "新增代辦清單",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "example": "JWT建立"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "新增成功!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Content未填寫!"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/todos/{id}": {
       "put": {
         "tags": [
           "待辦事項"
@@ -293,79 +366,6 @@
                 "message": {
                   "type": "string",
                   "example": "ID不存在"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            },
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
-      }
-    },
-    "/todos": {
-      "post": {
-        "tags": [
-          "待辦事項"
-        ],
-        "summary": "新增代辦清單",
-        "description": "新增代辦清單",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "data",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "type": "string",
-                  "example": "JWT建立"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "boolean",
-                  "example": true
-                },
-                "message": {
-                  "type": "string",
-                  "example": "新增成功!"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "400": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "boolean",
-                  "example": false
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Content未填寫!"
                 }
               },
               "xml": {
@@ -654,16 +654,6 @@
             "BearerAuth": []
           }
         ]
-      }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "BearerAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "Authorization",
-        "description": "Enter JWT Bearer token **_only_**"
       }
     }
   }

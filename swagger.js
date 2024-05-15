@@ -1,7 +1,6 @@
 const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
-    openapi: "2.0.0",
     info: {
         "title": "TODOLIST",
         "version": "1.0.0",
