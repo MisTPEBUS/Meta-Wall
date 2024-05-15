@@ -6,7 +6,7 @@ router.get('/', function (req, res, next) {
 
     /*
         #swagger.tags =  ['待辦事項']
-        #swagger.path = '/todos/{id}'
+        #swagger.path = '/todos'
         #swagger.method = 'get'
         #swagger.description = '讀取待辦清單'
         #swagger.summary = '讀取待辦清單'
