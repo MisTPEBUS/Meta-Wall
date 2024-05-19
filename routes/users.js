@@ -1,11 +1,20 @@
 var express = require('express');
 var router = express.Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const handleErrorAsync = require('../service/handleErrorAsync.js');
+const validator = require('validator');
+const User = require('../models/users');
+
+const appError = require('../service/appError.js');
+const { isAuth, blackListCheck, generateSendJWT } = require('../service/auth');
+const BlackList = require('../models/blackList');
 
 //註冊
-router.post('/sign_up', function (req, res, next) {
+router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
   /*
     #swagger.tags =  ['使用者登入驗證']
-    #swagger.path = 'api/sign_up'
+    #swagger.path = '/api/sign_up'
     #swagger.method = 'post'
     #swagger.summary='會員註冊'
     #swagger.description = '會員註冊'
@@ -34,13 +43,49 @@ router.post('/sign_up', function (req, res, next) {
        }
      } 
   */
-  res.send('respond sign_up');
-});
+  console.log(req.body);
+  let { name, email, password } = req.body;
+
+  // Content cannot null
+  if (!email) {
+    return next(appError("400", "Email欄位不能為空值！", next));
+  }
+  if (!password) {
+    return next(appError("400", "Password欄位不能為空值！", next));
+  }
+
+  if (!name) {
+    return next(appError("400", "Name欄位不能為空值！", next));
+  }
+
+  // isEmail Type
+  if (!validator.isEmail(email)) {
+    return next(appError("400", "Email 格式不正確", next));
+  }
+  // find user
+
+  const isUser = await User.findOne({ email: email });
+
+  if (isUser) {
+    return next(appError("409", "使用者已經註冊", next));
+  }
+  // pwd salt
+
+  password = bcrypt.hash(password, 12);
+  // 加密密碼
+  password = await bcrypt.hash(req.body.password, 12);
+  const newUser = await User.create({
+    email,
+    password,
+    name
+  });
+  generateSendJWT(newUser, 201, res);
+}));
 //登入
-router.post('/sign_in', function (req, res, next) {
+router.post('/sign_in', handleErrorAsync(async (req, res, next) => {
   /*
     #swagger.tags =  ['使用者登入驗證']
-    #swagger.path = 'api/sign_in'
+    #swagger.path = '/api/sign_in'
     #swagger.method = 'post'
     #swagger.summary='會員登入'
     #swagger.description = '會員登入'
@@ -56,12 +101,14 @@ router.post('/sign_in', function (req, res, next) {
      }
    }
    #swagger.responses[200] = { 
-     schema: {
+     schema: 
+       {
           "status": true,
-          "message": "登入成功",
-          "id": "5fOCKiwA08gUGBiPy8Pr0983SS62",
-          "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkUc....",
-          "expired": 1716013181463
+           "user":
+            {
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...",
+              "name": "Lobinda"
+            }
        }
      } 
    #swagger.responses[400] = { 
@@ -71,13 +118,34 @@ router.post('/sign_in', function (req, res, next) {
        }
      } 
   */
-  res.send('respond sign_in');
-});
+  let { email, password } = req.body;
+
+  // Content cannot null
+
+  if (!email) {
+    return next(appError("400", "Email欄位不能為空值！", next));
+  }
+  if (!password) {
+    return next(appError("400", "Password欄位不能為空值！", next));
+  }
+
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) {
+    return next(appError("400", "使用者不存在", next));
+  }
+
+  const auth = await bcrypt.compare(password, user.password);
+  if (!auth) {
+    return next(appError(400, '您的密碼不正確', next));
+  }
+  generateSendJWT(user, 200, res);
+}));
 //登出
-router.post('/sign_out', function (req, res, next) {
+router.post('/sign_out', isAuth, handleErrorAsync(async (req, res, next) => {
   /*
     #swagger.tags =  ['使用者登入驗證']
-    #swagger.path = 'api/sign_out'
+    #swagger.path = '/api/sign_out'
     #swagger.method = 'post'
     #swagger.summary='會員登出'
     #swagger.description = '會員登出(JWT要帶入header)'
@@ -98,14 +166,34 @@ router.post('/sign_out', function (req, res, next) {
        }
      } 
   */
-  res.send('respond sign_out');
-});
+
+  if (!req.user._id) {
+    return next(appError("400", "Token格式異常！", next));
+  }
+
+  const isblackList = await BlackList.findOne({ token: req.user._id });
+  console.log('req', isblackList);
+
+    if (isblackList) {
+      return next(appError("400", "使用者已經登出", next));
+    }
+
+    await BlackList
+      .create({
+        token: req.user._id
+      });
+
+  res.status(200).json({
+    "status": true,
+    "message": "會員登出",
+  });
+}));
 //驗證
 
-router.get('/users/checkout', function (req, res, next) {
+router.get('/checkout', isAuth, blackListCheck, handleErrorAsync(async (req, res, next) => {
   /*
     #swagger.tags =  ['使用者登入驗證']
-    #swagger.path = 'api/users/checkout'
+    #swagger.path = '/api/users/checkout'
     #swagger.method = 'post'
     #swagger.summary='使用者身分驗證'
     #swagger.description = '使用者身分驗證(帶入header)'
@@ -126,8 +214,12 @@ router.get('/users/checkout', function (req, res, next) {
        }
      } 
   */
-  res.send('respond with a resource');
-});
+
+  res.status(200).json({
+    "status": true,
+    "message": "",
+  });
+}));
 
 
 
