@@ -6,7 +6,7 @@ const doc = {
         "version": "1.0.0",
         "description": "六角學院 Week5-6周小組任務API。"
     },
-    host: "",                         // by default: "localhost:3000"
+    host: process.env.SWAGGER_HOST,                         // by default: "localhost:3000"
     basePath: "",                     // by default: "/"
     schemes: [],                      // by default: ['http']
     consumes: [],                     // by default: ['application/json']

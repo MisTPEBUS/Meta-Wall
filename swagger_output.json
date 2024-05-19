@@ -5,7 +5,6 @@
     "version": "1.0.0",
     "description": "六角學院 Week5-6周小組任務API。"
   },
-  "host": "",
   "basePath": "",
   "tags": [
     {
@@ -109,6 +108,11 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "data",
             "in": "body",
