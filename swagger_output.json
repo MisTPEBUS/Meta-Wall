@@ -36,6 +36,13 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -194,6 +201,11 @@
             "description": "待辦事項ID"
           },
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "data",
             "in": "body",
             "required": true,
@@ -220,7 +232,7 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "新增成功!"
+                  "example": "修改成功!"
                 }
               },
               "xml": {
@@ -270,6 +282,11 @@
             "required": true,
             "type": "string",
             "description": "待辦事項ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -330,13 +347,14 @@
         "parameters": [
           {
             "name": "id",
-            "in": "body",
+            "in": "path",
             "required": true,
-            "description": "待辦ID",
-            "schema": {
-              "type": "object",
-              "properties": {}
-            }
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -608,7 +626,7 @@
       }
     },
     "/api/users/checkout": {
-      "post": {
+      "get": {
         "tags": [
           "使用者登入驗證"
         ],
