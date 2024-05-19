@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 const handleErrorAsync = require('../service/handleErrorAsync.js');
 const validator = require('validator');
 const User = require('../models/users');
-
+const BlackList = require('../models/blackList');
 const appError = require('../service/appError.js');
 const { isAuth, blackListCheck, generateSendJWT } = require('../service/auth');
-const BlackList = require('../models/blackList');
+
 
 //註冊
 router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
