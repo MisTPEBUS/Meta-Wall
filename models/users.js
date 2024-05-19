@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema({
     password:{
       type: String,
       required: [true,'password未填寫'],
-      minlength: 8,
       select: false
     },
     createdAt: {
@@ -22,6 +21,9 @@ const userSchema = new mongoose.Schema({
       default: Date.now,
       select: false
     }
+  }, {
+    versionKey: false,
+    
   });
 // User
 const User = mongoose.model('user', userSchema);
