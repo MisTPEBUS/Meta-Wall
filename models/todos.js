@@ -4,6 +4,7 @@ const postSchema = new mongoose.Schema(
     user: {
         type: mongoose.Schema.ObjectId,
         ref:"user",
+        select: false,
         required: [true, 'ID 未填寫']
     },
     content: {
@@ -22,6 +23,6 @@ const postSchema = new mongoose.Schema(
     versionKey:false
   }
 );
-const Post = mongoose.model('Post', postSchema);
+const Todo = mongoose.model('todo', postSchema);
 
-module.exports = Post;
+module.exports = Todo;
