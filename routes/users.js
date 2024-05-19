@@ -194,7 +194,7 @@ router.get('/checkout', isAuth, blackListCheck, handleErrorAsync(async (req, res
   /*
     #swagger.tags =  ['使用者登入驗證']
     #swagger.path = '/api/users/checkout'
-    #swagger.method = 'post'
+    #swagger.method = 'get'
     #swagger.summary='使用者身分驗證'
     #swagger.description = '使用者身分驗證(帶入header)'
     #swagger.produces = ["application/json"] 
