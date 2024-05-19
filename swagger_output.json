@@ -382,7 +382,7 @@
         ]
       }
     },
-    "api/sign_up": {
+    "/api/sign_up": {
       "post": {
         "tags": [
           "使用者登入驗證"
@@ -418,7 +418,6 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
             "schema": {
               "type": "object",
               "properties": {
@@ -434,7 +433,8 @@
               "xml": {
                 "name": "main"
               }
-            }
+            },
+            "description": "OK"
           },
           "400": {
             "schema": {
@@ -458,7 +458,7 @@
         }
       }
     },
-    "api/sign_in": {
+    "/api/sign_in": {
       "post": {
         "tags": [
           "使用者登入驗證"
@@ -490,7 +490,6 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
             "schema": {
               "type": "object",
               "properties": {
@@ -498,27 +497,25 @@
                   "type": "boolean",
                   "example": true
                 },
-                "message": {
-                  "type": "string",
-                  "example": "登入成功"
-                },
-                "id": {
-                  "type": "string",
-                  "example": "5fOCKiwA08gUGBiPy8Pr0983SS62"
-                },
-                "token": {
-                  "type": "string",
-                  "example": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkUc...."
-                },
-                "expired": {
-                  "type": "number",
-                  "example": 1716013181463
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp..."
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Lobinda"
+                    }
+                  }
                 }
               },
               "xml": {
                 "name": "main"
               }
-            }
+            },
+            "description": "OK"
           },
           "400": {
             "schema": {
@@ -542,7 +539,7 @@
         }
       }
     },
-    "api/sign_out": {
+    "/api/sign_out": {
       "post": {
         "tags": [
           "使用者登入驗證"
@@ -551,6 +548,13 @@
         "description": "會員登出(JWT要帶入header)",
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
@@ -599,7 +603,7 @@
         ]
       }
     },
-    "api/users/checkout": {
+    "/api/users/checkout": {
       "post": {
         "tags": [
           "使用者登入驗證"
@@ -608,6 +612,13 @@
         "description": "使用者身分驗證(帶入header)",
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
         ],
         "responses": {
           "200": {
